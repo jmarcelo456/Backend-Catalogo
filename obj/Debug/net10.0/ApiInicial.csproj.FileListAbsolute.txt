@@ -177,3 +177,4 @@
 /home/rcald/Descargas/ApiInicial/bin/Debug/net10.0/zh-Hans/Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
 /home/rcald/Descargas/ApiInicial/bin/Debug/net10.0/zh-Hant/Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
 /home/rcald/Descargas/ApiInicial/bin/Debug/net10.0/runtimes/win/lib/net9.0/System.Windows.Extensions.dll
+/home/rcald/Descargas/ApiInicial/obj/Debug/net10.0/ApiInicial.sourcelink.json
