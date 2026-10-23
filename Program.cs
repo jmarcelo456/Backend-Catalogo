@@ -10,6 +10,17 @@ var conexionLocal = builder.Configuration.GetConnectionString("CatalogoConection
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(conexionLocal)
 );
+
+builder.Services.AddScoped<ProductoService>();
+
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        // Ignora las referencias circulares y las reemplaza con null
+        options.JsonSerializerOptions.ReferenceHandler = 
+            System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+    });
+
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 

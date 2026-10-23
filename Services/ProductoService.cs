@@ -45,6 +45,7 @@ public class ProductoService : IProductoService
 
     public async Task<List<Producto>> ObtenerTodosAsync()
     {
-        return await _context.Productos.ToListAsync();
+        return await _context.Productos.Include(p => p.Categoria)
+                                       .ToListAsync();
     }
 }
