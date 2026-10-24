@@ -26,6 +26,14 @@ public class ProductoService : IProductoService
         return true;
     }
 
+    public async Task<Producto> BuscarProductoPorIdAsync(int id)
+    {
+        var existe = await _context.Productos.FindAsync(id);
+        if (existe is null)
+            return null;
+        return existe;
+    }
+
     public async Task<Producto> CrearProductoAsync(Producto producto)
     {
         _context.Productos.Add(producto);

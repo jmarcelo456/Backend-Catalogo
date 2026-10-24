@@ -20,9 +20,21 @@ public class ProductosController : ControllerBase
         return await _productoService.ObtenerTodosAsync();
     }
 
-    [HttpDelete("id:int")]
+    [HttpDelete("{id:int}")]
     public async Task<bool> EliminarProducto(int id)
     {
         return await _productoService.EliminarAsync(id);
+    }
+
+    [HttpPost]
+    public async Task<Producto> CrearProducto(Producto producto)
+    {
+        return await _productoService.CrearProductoAsync(producto);
+    }
+
+    [HttpPatch("{id:int}")] //Por URL
+    public async Task<bool> ActualizarProducto(int id, Producto producto)
+    {
+        return await _productoService.ActualizarProducto(id, producto);
     }
 }
