@@ -1,4 +1,3 @@
-
 using System.ComponentModel;
 using ApiInicial.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +14,7 @@ public class ProductosController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<List<Producto>> ObtenerTodos()
+    public async Task<List<ProductoResponseDto>> ObtenerTodos()
     {
         return await _productoService.ObtenerTodosAsync();
     }
@@ -27,13 +26,13 @@ public class ProductosController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<Producto> CrearProducto(Producto producto)
+    public async Task<ProductoResponseDto> CrearProducto(ProductoRequestDto producto)
     {
         return await _productoService.CrearProductoAsync(producto);
     }
 
     [HttpPatch("{id:int}")] //Por URL
-    public async Task<bool> ActualizarProducto(int id, Producto producto)
+    public async Task<ProductoResponseDto> ActualizarProducto(int id, ProductoRequestDto producto)
     {
         return await _productoService.ActualizarProducto(id, producto);
     }

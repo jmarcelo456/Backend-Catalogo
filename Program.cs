@@ -7,20 +7,19 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 var conexionLocal = builder.Configuration.GetConnectionString("CatalogoConection");
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(conexionLocal)
-);
+builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(conexionLocal));
 
 builder.Services.AddScoped<ProductoService>();
+builder.Services.AddScoped<CategoriaService>();
 
-builder.Services.AddControllers()
+/* builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
         // Ignora las referencias circulares y las reemplaza con null
-        options.JsonSerializerOptions.ReferenceHandler = 
+        options.JsonSerializerOptions.ReferenceHandler =
             System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
     });
-
+ */
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 

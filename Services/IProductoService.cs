@@ -1,11 +1,10 @@
-
 using ApiInicial.Models;
 
 public interface IProductoService
 {
-    Task<List<Producto>> ObtenerTodosAsync();
-    Task<Producto> CrearProductoAsync(Producto producto);
-    Task<bool> ActualizarProducto(int id, Producto producto);
+    Task<List<ProductoResponseDto>> ObtenerTodosAsync();
+    Task<ProductoResponseDto> CrearProductoAsync(ProductoRequestDto producto);
+    Task<ProductoResponseDto> ActualizarProducto(int id, ProductoRequestDto producto);
     Task<bool> EliminarAsync(int id);
-    Task<Producto> BuscarProductoPorIdAsync(int id);
+    Task<ProductoResponseDto> BuscarProductoPorIdAsync(int id);
 }
