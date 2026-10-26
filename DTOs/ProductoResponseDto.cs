@@ -7,5 +7,5 @@ public class ProductoResponseDto
     public bool Estado { get; set; }
     public int CategoriaId { get; set; }
 
-    public string NombreCategoria { get; set; }
+    public string NombreCategoria { get; set; } = string.Empty;
 }

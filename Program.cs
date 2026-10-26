@@ -9,8 +9,8 @@ builder.Services.AddControllers();
 var conexionLocal = builder.Configuration.GetConnectionString("CatalogoConection");
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(conexionLocal));
 
-builder.Services.AddScoped<ProductoService>();
-builder.Services.AddScoped<CategoriaService>();
+builder.Services.AddScoped<IProductoService, ProductoService>();
+builder.Services.AddScoped<ICategoriaService, CategoriaService>();
 
 /* builder.Services.AddControllers()
     .AddJsonOptions(options =>

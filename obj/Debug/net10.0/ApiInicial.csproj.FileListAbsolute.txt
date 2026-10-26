@@ -358,3 +358,4 @@
 /home/marcelo/Documentos/ProgramacionWebII/repo/apiinicial/obj/Debug/net10.0/ApiInicial.pdb
 /home/marcelo/Documentos/ProgramacionWebII/repo/apiinicial/obj/Debug/net10.0/ApiInicial.genruntimeconfig.cache
 /home/marcelo/Documentos/ProgramacionWebII/repo/apiinicial/obj/Debug/net10.0/ref/ApiInicial.dll
+/home/marcelo/Documentos/ProgramacionWebII/repo/apiinicial/bin/Debug/net10.0/Docs/flashpost-collection-ApiInicial.json

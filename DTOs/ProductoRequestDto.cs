@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 public class ProductoRequestDto
 {
     [Required]
-    [StringLength(2, ErrorMessage = "La propiedad no tiene longitud correcta")]
+    [StringLength(100, ErrorMessage = "La propiedad no tiene longitud correcta")]
     public string Nombre { get; set; } = string.Empty;
 
     [Required]

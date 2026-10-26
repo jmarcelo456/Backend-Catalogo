@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 [Route("api/v1/productos")]
 public class ProductosController : ControllerBase
 {
-    private ProductoService _productoService;
+    private readonly IProductoService _productoService;
 
-    public ProductosController(ProductoService productoService)
+    public ProductosController(IProductoService productoService)
     {
-        this._productoService = productoService;
+        _productoService = productoService;
     }
 
     [HttpGet]
@@ -35,5 +35,12 @@ public class ProductosController : ControllerBase
     public async Task<ProductoResponseDto> ActualizarProducto(int id, ProductoRequestDto producto)
     {
         return await _productoService.ActualizarProducto(id, producto);
+    }
+
+    [HttpGet("{id:int}")]
+    public async Task<ActionResult<ProductoResponseDto>> ObtenerPorId(int id)
+    {
+        var producto = await _productoService.BuscarProductoPorIdAsync(id);
+        return producto is null ? NotFound() : Ok(producto);
     }
 }
