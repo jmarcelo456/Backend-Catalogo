@@ -1,0 +1,105 @@
+<div class="mx-auto max-w-4xl p-4">
+  <h1 class="mb-4 text-2xl font-bold text-gray-800">Categorías</h1>
+
+  @if (error(); as mensajeError) {
+    <p class="mb-4 rounded bg-red-100 p-3 text-red-700">{{ mensajeError }}</p>
+  }
+
+  <form
+    [formGroup]="form"
+    (ngSubmit)="guardar()"
+    class="mb-6 space-y-3 rounded-lg bg-white p-4 shadow-md"
+  >
+    <h2 class="font-semibold">
+      {{ editandoId() === null ? 'Nueva categoría' : 'Editar categoría' }}
+    </h2>
+
+    <div>
+      <input
+        type="text"
+        formControlName="nombre"
+        placeholder="Nombre"
+        class="w-full rounded border border-gray-300 px-3 py-2"
+      />
+      @if (form.controls.nombre.touched && form.controls.nombre.invalid) {
+        <p class="text-sm text-red-600">El nombre debe tener entre 2 y 100 caracteres.</p>
+      }
+    </div>
+
+    <div>
+      <input
+        type="text"
+        formControlName="descripcion"
+        placeholder="Descripción (opcional)"
+        class="w-full rounded border border-gray-300 px-3 py-2"
+      />
+      @if (form.controls.descripcion.touched && form.controls.descripcion.invalid) {
+        <p class="text-sm text-red-600">Máximo 250 caracteres.</p>
+      }
+    </div>
+
+    <div class="flex gap-3">
+      <button
+        type="submit"
+        class="rounded-md bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-500"
+      >
+        {{ editandoId() === null ? 'Crear' : 'Actualizar' }}
+      </button>
+      @if (editandoId() !== null) {
+        <button
+          type="button"
+          (click)="cancelar()"
+          class="rounded-md bg-gray-200 px-4 py-2 font-medium hover:bg-gray-300"
+        >
+          Cancelar
+        </button>
+      }
+    </div>
+  </form>
+
+  @if (loading()) {
+    <p class="text-gray-500">Cargando categorías...</p>
+  } @else if (categorias().length > 0) {
+    <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+          <tr class="text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+            <th class="px-6 py-3">ID</th>
+            <th class="px-6 py-3">Nombre</th>
+            <th class="px-6 py-3">Descripción</th>
+            <th class="px-6 py-3">Productos</th>
+            <th class="px-6 py-3">Acciones</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200 bg-white text-sm">
+          @for (categoria of categorias(); track categoria.id) {
+            <tr class="hover:bg-gray-50">
+              <td class="px-6 py-4 text-gray-500">{{ categoria.id }}</td>
+              <td class="px-6 py-4 font-medium text-gray-900">{{ categoria.nombre }}</td>
+              <td class="px-6 py-4 text-gray-600">{{ categoria.descripcion }}</td>
+              <td class="px-6 py-4">{{ categoria.cantidadProductos }}</td>
+              <td class="flex gap-2 px-6 py-4">
+                <button
+                  type="button"
+                  (click)="editar(categoria)"
+                  class="rounded bg-blue-600 px-3 py-1 text-white hover:bg-blue-500"
+                >
+                  Editar
+                </button>
+                <button
+                  type="button"
+                  (click)="eliminar(categoria)"
+                  class="rounded bg-red-600 px-3 py-1 text-white hover:bg-red-500"
+                >
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  } @else {
+    <p class="text-gray-500">Todavía no hay categorías.</p>
+  }
+</div>

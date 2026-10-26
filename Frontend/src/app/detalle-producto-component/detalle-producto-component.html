@@ -1,0 +1,19 @@
+<div class="mx-auto max-w-2xl p-4">
+  @if (loading()) {
+    <p class="text-gray-500">Cargando...</p>
+  } @else if (error(); as mensajeError) {
+    <p class="rounded bg-red-100 p-4 font-semibold text-red-700">{{ mensajeError }}</p>
+  } @else if (producto(); as p) {
+    <div class="space-y-3 rounded-lg bg-white p-6 shadow-md">
+      <h1 class="text-3xl font-bold">{{ p.nombre }}</h1>
+      <p><strong>Categoría:</strong> {{ p.nombreCategoria }}</p>
+      <p><strong>Precio:</strong> {{ p.precio | pipePersonalizado }}</p>
+      <p><strong>Stock:</strong> {{ p.stock }}</p>
+      <p><strong>Estado:</strong> {{ p.estado ? 'Activo' : 'Inactivo' }}</p>
+    </div>
+  }
+
+  <a routerLink="/productos" class="mt-4 inline-block font-semibold text-blue-600 hover:underline">
+    ← Volver a productos
+  </a>
+</div>

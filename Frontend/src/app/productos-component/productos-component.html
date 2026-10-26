@@ -1,0 +1,90 @@
+<div class="mx-auto max-w-6xl p-4">
+  <div class="mb-4 flex items-center justify-between">
+    <h1 class="text-2xl font-bold text-gray-800">Productos</h1>
+    <a
+      routerLink="/productos/nuevo"
+      class="rounded-md bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-500"
+    >
+      Nuevo producto
+    </a>
+  </div>
+
+  <nav class="mb-4 flex flex-wrap gap-2">
+    <a routerLink="/productos" class="rounded bg-white px-3 py-1 shadow hover:bg-blue-100">Todos</a>
+    @for (cat of categorias(); track cat.id) {
+      <a
+        routerLink="/productos"
+        [queryParams]="{ categoriaId: cat.id }"
+        class="rounded bg-white px-3 py-1 shadow hover:bg-blue-100"
+      >
+        {{ cat.nombre }}
+      </a>
+    }
+  </nav>
+
+  @if (loading()) {
+    <p class="text-gray-500">Cargando productos...</p>
+  } @else if (error(); as mensajeError) {
+    <section class="rounded-md bg-red-50 p-4">
+      <p class="mb-3 text-red-700">{{ mensajeError }}</p>
+      <button
+        type="button"
+        (click)="cargar()"
+        class="rounded-md bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-500"
+      >
+        Reintentar
+      </button>
+    </section>
+  } @else {
+    @if (productosFiltrados().length > 0) {
+      <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr class="text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+              <th class="px-6 py-3">ID</th>
+              <th class="px-6 py-3">Nombre</th>
+              <th class="px-6 py-3">Categoría</th>
+              <th class="px-6 py-3">Precio</th>
+              <th class="px-6 py-3">Stock</th>
+              <th class="px-6 py-3">Estado</th>
+              <th class="px-6 py-3">Acciones</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200 bg-white text-sm">
+            @for (producto of productosFiltrados(); track producto.id) {
+              <tr [appStockBajo]="producto.stock">
+                <td class="px-6 py-4 text-gray-500">{{ producto.id }}</td>
+                <td class="px-6 py-4 font-medium text-gray-900">{{ producto.nombre }}</td>
+                <td class="px-6 py-4 text-gray-600">{{ producto.nombreCategoria }}</td>
+                <td class="px-6 py-4">{{ producto.precio | pipePersonalizado }}</td>
+                <td class="px-6 py-4">{{ producto.stock }}</td>
+                <td class="px-6 py-4">{{ producto.estado ? 'Activo' : 'Inactivo' }}</td>
+                <td class="flex gap-2 px-6 py-4">
+                  <a
+                    [routerLink]="['/productos', producto.id]"
+                    class="rounded bg-gray-600 px-3 py-1 text-white hover:bg-gray-500"
+                    >Ver</a
+                  >
+                  <a
+                    [routerLink]="['/productos', producto.id, 'editar']"
+                    class="rounded bg-blue-600 px-3 py-1 text-white hover:bg-blue-500"
+                    >Editar</a
+                  >
+                  <button
+                    type="button"
+                    (click)="eliminar(producto)"
+                    class="rounded bg-red-600 px-3 py-1 text-white hover:bg-red-500"
+                  >
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    } @else {
+      <p class="text-gray-500">No hay productos para mostrar.</p>
+    }
+  }
+</div>

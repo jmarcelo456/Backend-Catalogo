@@ -1,0 +1,86 @@
+<div class="mx-auto max-w-xl p-4">
+  <h1 class="mb-4 text-2xl font-bold text-gray-800">
+    {{ esEdicion() ? 'Editar producto' : 'Nuevo producto' }}
+  </h1>
+
+  @if (error(); as mensajeError) {
+    <p class="mb-4 rounded bg-red-100 p-3 text-red-700">{{ mensajeError }}</p>
+  }
+
+  <form
+    [formGroup]="form"
+    (ngSubmit)="guardar()"
+    class="space-y-4 rounded-lg bg-white p-6 shadow-md"
+  >
+    <div>
+      <label class="block font-medium" for="nombre">Nombre</label>
+      <input
+        id="nombre"
+        type="text"
+        formControlName="nombre"
+        class="w-full rounded border border-gray-300 px-3 py-2"
+      />
+      @if (form.controls.nombre.touched && form.controls.nombre.invalid) {
+        <p class="text-sm text-red-600">El nombre debe tener entre 2 y 100 caracteres.</p>
+      }
+    </div>
+
+    <div>
+      <label class="block font-medium" for="precio">Precio</label>
+      <input
+        id="precio"
+        type="number"
+        formControlName="precio"
+        class="w-full rounded border border-gray-300 px-3 py-2"
+      />
+      @if (form.controls.precio.touched && form.controls.precio.invalid) {
+        <p class="text-sm text-red-600">El precio debe estar entre 1 y 100.</p>
+      }
+    </div>
+
+    <div>
+      <label class="block font-medium" for="stock">Stock</label>
+      <input
+        id="stock"
+        type="number"
+        formControlName="stock"
+        class="w-full rounded border border-gray-300 px-3 py-2"
+      />
+      @if (form.controls.stock.touched && form.controls.stock.invalid) {
+        <p class="text-sm text-red-600">El stock debe ser mayor a cero.</p>
+      }
+    </div>
+
+    <div>
+      <label class="block font-medium" for="categoriaId">Categoría</label>
+      <select
+        id="categoriaId"
+        formControlName="categoriaId"
+        class="w-full rounded border border-gray-300 px-3 py-2"
+      >
+        <option [ngValue]="0" disabled>Seleccione una categoría</option>
+        @for (cat of categorias(); track cat.id) {
+          <option [ngValue]="cat.id">{{ cat.nombre }}</option>
+        }
+      </select>
+      @if (form.controls.categoriaId.touched && form.controls.categoriaId.invalid) {
+        <p class="text-sm text-red-600">Debe seleccionar una categoría.</p>
+      }
+    </div>
+
+    <div class="flex gap-3">
+      <button
+        type="submit"
+        class="rounded-md bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-500"
+      >
+        Guardar
+      </button>
+      <a
+        routerLink="/productos"
+        class="rounded-md bg-gray-200 px-4 py-2 font-medium hover:bg-gray-300"
+      >
+        Cancelar
+      </a>
+    </div>
+  </form>
+</div>
